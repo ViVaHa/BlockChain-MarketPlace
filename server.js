@@ -3,13 +3,13 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const db = require('./config/keys').mongoURI;
 const users = require("./routes/api/users");
-
+var cors = require('cors');
 app = express();
 
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use("/api/users", users);
 
