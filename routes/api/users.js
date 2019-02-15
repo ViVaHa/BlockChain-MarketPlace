@@ -20,13 +20,12 @@ router.post('/register', (req,res) =>{
         const newUser = new User({
           email : req.body.email,
           name : req.body.name,
-          password : req.body.password
+          password : req.body.password,
+          accountBalance : req.body.accountBalance
         });
-
         newUser.save()
         .then(user => res.status(200).json(user))
         .catch(err => console.log(err));
-
       }
     });
   }
@@ -54,5 +53,13 @@ router.post('/login', (req,res)=>{
     })
   }
 });
+
+
+
+
+
+
+
+
 
 module.exports = router;
