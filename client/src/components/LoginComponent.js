@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 export default class Login extends Component {
   constructor(){
@@ -26,6 +26,8 @@ export default class Login extends Component {
             if(res.status==200){
               console.log("Success");
               localStorage.setItem('login',res.data.email);
+              this.props.history.push('/');
+              window.location.reload();
             }
           });
     }
@@ -47,7 +49,7 @@ export default class Login extends Component {
                       onChange={this.onChange}/>
                   </div>
                   <div className="form-group">
-                      <input type="submit" value="Register Yourself" className="btn btn-primary"/>
+                      <input type="submit" value="Login" className="btn btn-primary"/>
                   </div>
               </form>
           </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 export default class Register extends Component {
   constructor(){
       super();
@@ -8,7 +8,7 @@ export default class Register extends Component {
         email : '',
         name : '',
         password : '',
-
+        accountBalance : 0
       }
   }
   onChange = e =>{
@@ -19,7 +19,8 @@ export default class Register extends Component {
     const object = {
       name : this.state.name,
       email : this.state.email,
-      password : this.state.password
+      password : this.state.password,
+      accountBalance : 500
     }
     console.log(this.state);
     axios.post('http://localhost:5000/api/users/register', object)
@@ -29,6 +30,9 @@ export default class Register extends Component {
             this.props.history.push('/login')
           }
         });
+  }
+  goToLogin = e=>{
+    this.props.history.push('/login')
   }
     render() {
         return (
@@ -51,8 +55,9 @@ export default class Register extends Component {
                         onChange={this.onChange}/>
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Register Yourself" className="btn btn-primary"/>
+                        <input type="submit" value="Register Yourself" className="btn btn-success"/>
                     </div>
+                    <p> Already have account? <Link to ='/login' >Click Here</Link></p>
                 </form>
             </div>
         )
