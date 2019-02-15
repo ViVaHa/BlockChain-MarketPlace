@@ -15,6 +15,10 @@ const userSchema = new Schema({
     type : String,
     required : true
   },
+  accountBalance:{
+    type : Number,
+    required : true
+  },
   date:{
     type : Date,
     requird : Date.now
