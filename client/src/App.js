@@ -4,6 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Register from './components/RegisterComponent';
 import Login from './components/LoginComponent';
 import Logout from './components/LogoutComponent'
+import CreateProduct from './components/CreateProductComponent';
+import BuyProduct from './components/EditProductComponent';
+import ListProduct from './components/ProductListComponent';
 import './App.css'
 class App extends Component {
   constructor(){
@@ -43,15 +46,25 @@ class App extends Component {
                     <Link to={'/login'} className="nav-link">Login</Link>
                   </li>
                   <li className={this.state.isLoggedIn ? 'nav-item' : 'hidden' }>
+                    <Link to={'/list'} className="nav-link">All Items For Sale</Link>
+                  </li>
+                  <li className={this.state.isLoggedIn ? 'nav-item' : 'hidden' }>
+                    <Link to={'/sell'} className="nav-link">Sell an Item</Link>
+                  </li>
+                  <li className={this.state.isLoggedIn ? 'nav-item' : 'hidden' }>
                     <Link to={'/logout'} className="nav-link">Logout</Link>
                   </li>
               </ul>
             </div>
           </nav> <br/>
           <Switch>
+              
               <Route exact path='/register' component={ Register } />
               <Route path='/login' component={ Login } />
               <Route path='/logout' component={ Logout } />
+              <Route path = "/list" component={ListProduct}></Route>
+              <Route path="/edit/:id" component = {BuyProduct}></Route>
+              <Route path="/sell" component = {CreateProduct}></Route>
           </Switch>
         </div>
       </Router>

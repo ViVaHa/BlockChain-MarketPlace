@@ -13,14 +13,14 @@ export default class Logout extends Component {
     var login = localStorage.getItem('login');
     console.log("Success");
     localStorage.setItem('login','');
-    this.props.history.push('/');
+    this.props.history.push('/login');
     window.location.reload();
 
   }
     render() {
         return (
           <div style={{marginTop: 10}}>
-              <h3>Login</h3>
+              <h3>Logout</h3>
               <form onSubmit={this.onSubmit}>
                   <div className="form-group">
                       <p> Sure you want to logout? </p>

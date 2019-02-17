@@ -1,0 +1,8 @@
+In the root folder do the following:
+npm install -g concurrently
+npm start
+
+
+Then open a new shell and cd to /client
+npm install -g react-scripts
+npm start
