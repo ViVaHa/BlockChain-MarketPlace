@@ -58,7 +58,8 @@ router.route('/buy/:id').post(function(req,res){
             var obj = {
               old_owner : req.body.old_owner,
               new_owner : req.body.new_owner,
-              cost : req.body.product_price
+              cost : req.body.product_price,
+              new_owner_id : req.body.new_owner_id
             }
             changeOwnerShip(obj, function(isValid){
               if(isValid){

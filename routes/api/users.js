@@ -48,7 +48,8 @@ router.post('/login', (req,res)=>{
       }
       res.json({
         success: true,
-        email : req.body.email
+        email : req.body.email,
+        id : user._id
       });
     })
   }

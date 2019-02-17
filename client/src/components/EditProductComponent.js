@@ -62,12 +62,14 @@ export default class BuyProduct extends Component {
     onSubmit(e) {
         e.preventDefault();
         var loggedInUser = localStorage.getItem('login');
+        var id = localStorage.getItem('id');
         const obj = {
             product_name: this.state.product_name,
             product_price: this.state.product_price,
             old_owner : this.state.product_posted_by,
             new_owner : loggedInUser,
-            product_status: this.state.product_status
+            product_status: this.state.product_status,
+            new_owner_id : id
         };
         axios.post('http://localhost:5000/api/products/buy/'+this.props.match.params.id, obj)
             .then(res => console.log(res.data));

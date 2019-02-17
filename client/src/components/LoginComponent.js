@@ -22,10 +22,11 @@ export default class Login extends Component {
     if(localStorage.getItem('login')==''){
       axios.post('http://localhost:5000/api/users/login', object)
           .then(res => {
-            console.log(res.data)
+            console.log(res.data);
             if(res.status==200){
               console.log("Success");
               localStorage.setItem('login',res.data.email);
+              localStorage.setItem('id', res.data.id);
               this.props.history.push('/');
               window.location.reload();
             }
