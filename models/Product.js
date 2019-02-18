@@ -13,6 +13,9 @@ let productSchema = new Schema({
     },
     product_posted_by:{
         type:String
+    },
+    product_image_url:{
+        type:String
     }
 
 });

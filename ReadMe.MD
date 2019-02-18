@@ -1,5 +1,6 @@
 In the root folder do the following:
 npm install -g concurrently
+npm install 
 npm start
 
 
