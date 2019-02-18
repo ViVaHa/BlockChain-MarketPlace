@@ -8,24 +8,16 @@ import 'mdbreact/dist/css/mdb.css' ;
 import 'font-awesome/css/font-awesome.min.css';
 
 import '../css/product.css'
-const User = props=>(
-    
-    
+const User = props => (<div >
+  <h4 >
+    {props.user.name}
+  </h4><br/>
 
-                       
-<div >
-<h4 >
-                        {props.user.name} </h4><br/>
-                        
-                        <MDBIcon icon="envelope"  size="2x" className="indigo-text pr-3"/> {props.user.email}<br/>
-                        <MDBIcon icon="gift"  size="2x" className="pink-text pr-3"/> ${props.user.accountBalance}<br/>
-                        
-                        
-                       
-                        
-</div>
-)
+  <MDBIcon icon="envelope" size="2x" className="indigo-text pr-3"/> {props.user.email}<br/>
+  <MDBIcon icon="gift" size="2x" className="pink-text pr-3"/>
+  ${props.user.accountBalance}<br/>
 
+</div>)
 
 export default class UserAccount extends Component{
 
@@ -61,10 +53,10 @@ export default class UserAccount extends Component{
 
               <div>
                 <div className="row">
-                <div  class="col-lg-6 col-lg-offset-3 ">
+                <div className="col-lg-6 col-lg-offset-3 ">
                 {this.accountDetails()}
                 </div>
-                 
+
                 </div>
               </div>
 
