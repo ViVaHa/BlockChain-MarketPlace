@@ -5,7 +5,7 @@ import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button, CardDeck } from 'reactstrap';
 import '../css/product.css'
 const Product = props=>(
-    
+
 
 <div className="col-sm-3 pad">
     <Card>

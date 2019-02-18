@@ -68,7 +68,7 @@ router.route('/add').post(function(req,res){
 
 router.route('/buy/:id').post(function(req,res){
     Product.findById(req.params.id, function(err,product){
-        console.log(req.params.id);
+        //console.log(req.params.id);
         if(!product)
             res.status(404).send('data is not found');
         else
@@ -83,7 +83,8 @@ router.route('/buy/:id').post(function(req,res){
               old_owner : req.body.old_owner,
               new_owner : req.body.new_owner,
               cost : req.body.product_price,
-              new_owner_id : req.body.new_owner_id
+              new_owner_id : req.body.new_owner_id,
+              product_id : req.params.id
             }
             changeOwnerShip(obj, function(isValid){
               if(isValid){
