@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-
+import '../App.css'
 export default class BuyProduct extends Component {
 
     constructor(props) {
@@ -16,7 +16,8 @@ export default class BuyProduct extends Component {
             product_name: '',
             product_price: '',
             product_posted_by: '',
-            product_status: 'Avail'
+            product_status: 'Avail',
+            showModal : false
         }
     }
 
@@ -60,6 +61,9 @@ export default class BuyProduct extends Component {
     }
 
     onSubmit(e) {
+      this.setState({
+          showModal: false
+      });
         e.preventDefault();
         var loggedInUser = localStorage.getItem('login');
         var id = localStorage.getItem('id');
@@ -72,9 +76,13 @@ export default class BuyProduct extends Component {
             new_owner_id : id
         };
         axios.post('http://localhost:5000/api/products/buy/'+this.props.match.params.id, obj)
-            .then(res => console.log(res.data));
+            .then(res => console.log(res.data))
+            .catch(error => {
+              this.setState({
+                  showModal: true
+              });
+            });
 
-        this.props.history.push('/');
     }
 
     render() {
@@ -119,6 +127,9 @@ export default class BuyProduct extends Component {
                         </div>
 
                 </form>
+                <div className={this.state.showModal ? 'alert alert-danger' : 'hidden' } role="alert">
+                    Insufficient Balance
+                </div>
             </div>
         )
     }
