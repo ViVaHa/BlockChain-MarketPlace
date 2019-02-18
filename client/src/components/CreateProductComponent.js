@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios';
 import PromptModal from './PromptModalComponent';
+import AlertModal from './AlertModalComponent';
 export default class CreateProduct  extends Component{
 
     constructor(props){
@@ -24,7 +25,8 @@ export default class CreateProduct  extends Component{
             file:"",
             imagePreviewUrl:"",
             seller_id: owner_id,
-            showModal : false
+            showModal : false,
+            showAlertModal : false
         }
     }
 
@@ -95,13 +97,18 @@ export default class CreateProduct  extends Component{
           product_status:'Available',
           product_posted_by:owner,
           showModal : false,
+          showAlertModal : true
       });
 
     }
     close = e => {
       this.setState({showModal : false});
     }
-
+    alertClose = e =>{
+      this.setState({showAlertModal : false});
+      this.props.history.push('/');
+      window.location.reload();
+    }
     render(){
         return (
             <div style={{marginTop:20}}>
@@ -142,6 +149,12 @@ export default class CreateProduct  extends Component{
                       heading = "Do you want to Post to Market Place for sure?"
                       body = "If Yes Press Post to Market Place else click the button close"/>
 
+                    <AlertModal
+                        show = {this.state.showAlertModal}
+                        close = {this.alertClose}
+                        heading = "Success"
+                        body = "Your Product has been posted to the MarketPlace"
+                        text = "Close"/>
             </div>
         )
     }
