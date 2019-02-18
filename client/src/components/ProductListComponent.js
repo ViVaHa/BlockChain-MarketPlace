@@ -5,19 +5,11 @@ import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button, CardDeck } from 'reactstrap';
 import '../css/product.css'
 const Product = props=>(
-    // <tr>
-    //     <td >{props.product.product_name}
-    //     <br/>{'$' + props.product.product_price}
-    //     <br/>{props.product.product_status}
-    //     </td>
-    //     <td>
-    //         <Link to={"/edit/" + props.product._id}>Buy Product</Link>
-    //     </td>
-    // </tr>
+    
 
-<div className="col-sm-6 pad">
+<div className="col-sm-3 pad">
     <Card>
-      <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=256%C3%97180&w=256&h=180" alt="Card image cap" />
+      <CardImg top height= "150vh"   object-fit= "cover"  src={require(`../uploads/${props.product.product_image_url}`)} alt="Card image cap" />
       <CardBody>
         <CardTitle> Product Name : {props.product.product_name}</CardTitle>
         <CardSubtitle>Price : {'$' + props.product.product_price}</CardSubtitle>

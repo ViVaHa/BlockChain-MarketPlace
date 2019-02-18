@@ -18,7 +18,10 @@ export default class CreateProduct  extends Component{
             product_price:'',
             product_status:'Available',
             product_posted_by:owner,
-            product_image:null
+            product_image:null,
+            item: {},
+            file:"",
+            imagePreviewUrl:""
         }
     }
 
@@ -41,9 +44,16 @@ export default class CreateProduct  extends Component{
     }
 
     onChangeProductImage(e){
-        this.setState({
-            product_image:e.target.files[0]
-        });
+        e.preventDefault()
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        reader.onloadend = () => {
+            this.setState({
+            file: file,
+            imagePreviewUrl: reader.result
+            });
+        }
+        reader.readAsDataURL(file);
     }
 
     onSubmit(e){
@@ -56,8 +66,19 @@ export default class CreateProduct  extends Component{
             product_status:this.state.product_status,
             product_posted_by:this.state.product_posted_by,
         }
-        axios.post('http://localhost:5000/api/products/add', newProduct)
-            .then(res => console.log(res.data));
+       
+
+        const formData = new FormData();
+        formData.append("product_name" , this.state.product_name);
+        formData.append("product_price", this.state.product_price);
+        formData.append("product_status",this.state.product_status);
+        formData.append("product_posted_by", this.state.product_posted_by);
+        formData.append("imageName",this.state.file,this.state.file.name);
+        
+        
+        
+        axios.post('http://localhost:5000/api/products/add', formData )
+        .then(res => console.log(res.data));
 
         this.setState({
             product_name:'',
@@ -65,6 +86,11 @@ export default class CreateProduct  extends Component{
             product_status:'Available',
             product_posted_by:owner,
         });
+
+
+
+
+
     }
     render(){
         return (
@@ -89,7 +115,7 @@ export default class CreateProduct  extends Component{
                         </div>
 
                         <div className="form-group">
-                        <input type="file" name="myImage"  onChange= {this.onChangeProductImage} />
+                        <input type="file" name="imageName"  onChange= {this.onChangeProductImage} />
                         </div>
 
                        <div className="form-group">
