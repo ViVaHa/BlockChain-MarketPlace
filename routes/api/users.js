@@ -5,6 +5,16 @@ const registerValidation = require('../../register');
 const loginValidation = require('../../login');
 const User = require('../../models/User')
 
+router.route('/account/:email').get(function(req,res){
+  var loggedInUser = req.params.email;
+  User.find({email : loggedInUser  },function(err,products){
+      if(err){
+          console.log(err);
+      } else {
+          res.json(products);
+      }
+  });
+});
 
 router.post('/register', (req,res) =>{
   console.log(req.body);

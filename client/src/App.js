@@ -7,6 +7,7 @@ import Logout from './components/LogoutComponent'
 import CreateProduct from './components/CreateProductComponent';
 import BuyProduct from './components/EditProductComponent';
 import ListProduct from './components/ProductListComponent';
+import UserAccount from './components/UserAccountComponent';
 import './App.css'
 class App extends Component {
   constructor(){
@@ -52,6 +53,9 @@ class App extends Component {
                     <Link to={'/sell'} className="nav-link">Sell an Item</Link>
                   </li>
                   <li className={this.state.isLoggedIn ? 'nav-item' : 'hidden' }>
+                    <Link to={'/account'} className="nav-link">My Account</Link>
+                  </li>
+                  <li className={this.state.isLoggedIn ? 'nav-item' : 'hidden' }>
                     <Link to={'/logout'} className="nav-link">Logout</Link>
                   </li>
               </ul>
@@ -60,6 +64,7 @@ class App extends Component {
           <Switch>
               
               <Route exact path='/register' component={ Register } />
+              <Route exact path='/account' component={ UserAccount } />
               <Route path='/login' component={ Login } />
               <Route path='/logout' component={ Logout } />
               <Route path = "/list" component={ListProduct}></Route>
