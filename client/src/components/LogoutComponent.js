@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
+
+import PromptModal from './PromptModalComponent';
+
+
+
 export default class Logout extends Component {
   constructor(){
       super();
+      this.state = {
+        showModal : false
+      }
   }
   onChange = e =>{
     this.setState({[e.target.id] : e.target.value});
@@ -12,10 +20,17 @@ export default class Logout extends Component {
     e.preventDefault();
     var login = localStorage.getItem('login');
     console.log("Success");
+
+    this.setState({showModal : true});
+  }
+  logout = e => {
     localStorage.setItem('login','');
     this.props.history.push('/login');
     window.location.reload();
-
+    this.setState({showModal : false});
+  }
+  close = e => {
+    this.setState({showModal : false});
   }
     render() {
         return (
@@ -27,6 +42,14 @@ export default class Logout extends Component {
                       <input type="submit" value="Logout" className="btn btn-danger"/>
                   </div>
               </form>
+          <PromptModal
+            show = {this.state.showModal}
+            primaryAction = {this.logout}
+            close = {this.close}
+            primaryText = "Logout"
+            secondaryText = "Close"
+            heading = "Do you want to logout for sure?"
+            body = "If Yes Press Logout else click the button close"/>
           </div>
         )
     }
