@@ -7,13 +7,16 @@ export default class Login extends Component {
       this.state = {
         email : '',
         password : '',
-
+        showModal : false
       }
   }
   onChange = e =>{
     this.setState({[e.target.id] : e.target.value});
   }
   onSubmit = e =>{
+    this.setState({
+        showModal: false
+    });
     e.preventDefault();
     const object = {
       email : this.state.email,
@@ -30,6 +33,11 @@ export default class Login extends Component {
               this.props.history.push('/');
               window.location.reload();
             }
+          })
+          .catch(error => {
+            this.setState({
+                showModal: true
+            });
           });
     }
 
@@ -51,6 +59,9 @@ export default class Login extends Component {
                   </div>
                   <div className="form-group">
                       <input type="submit" value="Login" className="btn btn-primary"/>
+                  </div>
+                  <div className={this.state.showModal ? 'alert alert-danger' : 'hidden' } role="alert">
+                      Incorrect credentials
                   </div>
               </form>
           </div>
