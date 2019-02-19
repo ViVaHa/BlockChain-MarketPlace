@@ -14,7 +14,6 @@ const User = props => (<div >
   </h4><br/>
 
 
-
 <div >
 <h4 >
     {props.user.name} </h4><br/>
@@ -27,7 +26,6 @@ const User = props => (<div >
 
 </div>
 )
-=======
   <MDBIcon icon="envelope" size="2x" className="indigo-text pr-3"/> {props.user.email}<br/>
   <MDBIcon icon="gift" size="2x" className="pink-text pr-3"/>
   ${props.user.accountBalance}<br/>
