@@ -16,8 +16,10 @@ let productSchema = new Schema({
     },
     product_image_url:{
         type:String
+    },
+    seller_id:{
+      type : String
     }
-
 });
 
 

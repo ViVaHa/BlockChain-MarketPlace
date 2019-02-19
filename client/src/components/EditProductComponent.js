@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-
+import '../App.css'
+import AlertModal from './AlertModalComponent';
 export default class BuyProduct extends Component {
 
     constructor(props) {
@@ -16,7 +17,9 @@ export default class BuyProduct extends Component {
             product_name: '',
             product_price: '',
             product_posted_by: '',
-            product_status: 'Avail'
+            product_status: 'Avail',
+            showModal : false,
+            showAlertModal : false
         }
     }
 
@@ -60,6 +63,9 @@ export default class BuyProduct extends Component {
     }
 
     onSubmit(e) {
+      this.setState({
+          showModal: false
+      });
         e.preventDefault();
         var loggedInUser = localStorage.getItem('login');
         var id = localStorage.getItem('id');
@@ -72,9 +78,23 @@ export default class BuyProduct extends Component {
             new_owner_id : id
         };
         axios.post('http://localhost:5000/api/products/buy/'+this.props.match.params.id, obj)
-            .then(res => console.log(res.data));
+            .then(res => {
+              console.log(res.data);
+              this.setState({
+                  showAlertModal: true
+              });
+            })
+            .catch(error => {
+              this.setState({
+                  showModal: true
+              });
+            });
 
-        this.props.history.push('/');
+    }
+    alertClose = e =>{
+      this.setState({showAlertModal : false});
+      this.props.history.push('/');
+      window.location.reload();
     }
 
     render() {
@@ -119,6 +139,15 @@ export default class BuyProduct extends Component {
                         </div>
 
                 </form>
+                <div className={this.state.showModal ? 'alert alert-danger' : 'hidden' } role="alert">
+                    Insufficient Balance
+                </div>
+                <AlertModal
+                    show = {this.state.showAlertModal}
+                    close = {this.alertClose}
+                    heading = "Success"
+                    body = "Product has been bought successfully. Go to your account page to view it"
+                    text = "Close"/>
             </div>
         )
     }

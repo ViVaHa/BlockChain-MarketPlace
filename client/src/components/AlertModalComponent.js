@@ -14,11 +14,8 @@ export default class PromptModal extends Component {
           </Modal.Header>
           <Modal.Body>{this.props.body}</Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.props.close}>
-              {this.props.secondarytext}
-            </Button>
-            <Button variant="primary" onClick={this.props.primaryaction}>
-              {this.props.primarytext}
+            <Button onClick={this.props.close}>
+              {this.props.text}
             </Button>
           </Modal.Footer>
       </Modal>

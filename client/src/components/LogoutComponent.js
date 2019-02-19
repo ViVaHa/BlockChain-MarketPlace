@@ -44,10 +44,10 @@ export default class Logout extends Component {
               </form>
           <PromptModal
             show = {this.state.showModal}
-            primaryAction = {this.logout}
+            primaryaction = {this.logout}
             close = {this.close}
-            primaryText = "Logout"
-            secondaryText = "Close"
+            primarytext = "Logout"
+            secondarytext = "Close"
             heading = "Do you want to logout for sure?"
             body = "If Yes Press Logout else click the button close"/>
           </div>

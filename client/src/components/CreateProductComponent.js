@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 import axios from 'axios';
 import PromptModal from './PromptModalComponent';
+import AlertModal from './AlertModalComponent';
 export default class CreateProduct  extends Component{
 
     constructor(props){
         super(props);
         var owner = localStorage.getItem('login');
+        var owner_id = localStorage.getItem('id');
         this.onChangeProductName = this.onChangeProductName.bind(this);
         this.onChangeProductPrice = this.onChangeProductPrice.bind(this);
         this.onChangeProductPostedBy = this.onChangeProductPostedBy.bind(this);
@@ -22,7 +24,9 @@ export default class CreateProduct  extends Component{
             item: {},
             file:"",
             imagePreviewUrl:"",
-            showModal : false
+            seller_id: owner_id,
+            showModal : false,
+            showAlertModal : false
         }
     }
 
@@ -70,11 +74,13 @@ export default class CreateProduct  extends Component{
           product_price:this.state.product_price,
           product_status:this.state.product_status,
           product_posted_by:this.state.product_posted_by,
+          seller_id : this.state.seller_id
       }
 
 
       const formData = new FormData();
       formData.append("product_name" , this.state.product_name);
+      formData.append("seller_id" , this.state.seller_id);
       formData.append("product_price", this.state.product_price);
       formData.append("product_status",this.state.product_status);
       formData.append("product_posted_by", this.state.product_posted_by);
@@ -90,14 +96,19 @@ export default class CreateProduct  extends Component{
           product_price:'',
           product_status:'Available',
           product_posted_by:owner,
-          showModal : false
+          showModal : false,
+          showAlertModal : true
       });
 
     }
     close = e => {
       this.setState({showModal : false});
     }
-
+    alertClose = e =>{
+      this.setState({showAlertModal : false});
+      this.props.history.push('/');
+      window.location.reload();
+    }
     render(){
         return (
             <div style={{marginTop:20}}>
@@ -131,13 +142,19 @@ export default class CreateProduct  extends Component{
                     </form>
                     <PromptModal
                       show = {this.state.showModal}
-                      primaryAction = {this.createProduct}
+                      primaryaction = {this.createProduct}
                       close = {this.close}
-                      primaryText = "Post to Market Place"
-                      secondaryText = "Close"
+                      primarytext = "Post to Market Place"
+                      secondarytext = "Close"
                       heading = "Do you want to Post to Market Place for sure?"
                       body = "If Yes Press Post to Market Place else click the button close"/>
 
+                    <AlertModal
+                        show = {this.state.showAlertModal}
+                        close = {this.alertClose}
+                        heading = "Success"
+                        body = "Your Product has been posted to the MarketPlace"
+                        text = "Close"/>
             </div>
         )
     }

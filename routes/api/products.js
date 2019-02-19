@@ -10,7 +10,7 @@ const SOLD = 'sold';
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-      
+
     cb(null, './client/src/uploads')
   },
   filename: function (req, file, cb) {
@@ -49,7 +49,7 @@ router.route('/add').post(function(req,res){
         }
         else{
           var imageUrl = req.file.originalname;
-          
+
           let product = new Product(req.body);
           product.product_image_url =  req.file.originalname;
           console.log(product);
@@ -62,26 +62,20 @@ router.route('/add').post(function(req,res){
         });
         }
       })
-      
-    /*product.save()
-        .then(product =>{
-            res.status(200).json({'product': 'product added sucessfully '});
-        })
-        .catch(err =>{
-            res.status(400).send('adding new product failed ');
-        });*/
+
 });
 
 
 router.route('/buy/:id').post(function(req,res){
     Product.findById(req.params.id, function(err,product){
+        //console.log(req.params.id);
         if(!product)
             res.status(404).send('data is not found');
         else
             product.product_name = req.body.product_name;
             product.product_price = req.body.product_price;
             product.product_status = SOLD
-            product.product_posted_by = req.body.new_owner;
+            //product.product_posted_by = req.body.new_owner;
             product.product_image_url = req.body.product_image_url;
             var new_owner = req.body.new_owner;
             var old_owner = req.body.old_owner;
@@ -89,7 +83,8 @@ router.route('/buy/:id').post(function(req,res){
               old_owner : req.body.old_owner,
               new_owner : req.body.new_owner,
               cost : req.body.product_price,
-              new_owner_id : req.body.new_owner_id
+              new_owner_id : req.body.new_owner_id,
+              product_id : req.params.id
             }
             changeOwnerShip(obj, function(isValid){
               if(isValid){
