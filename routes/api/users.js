@@ -4,16 +4,49 @@ const key = require('../../config/keys');
 const registerValidation = require('../../register');
 const loginValidation = require('../../login');
 const User = require('../../models/User')
+const Product =  require('../../models/Product')
 
 router.route('/account/:email').get(function(req,res){
   var loggedInUser = req.params.email;
-  User.find({email : loggedInUser  },function(err,products){
+  User.find({email : loggedInUser  },function(err,users){
       if(err){
           console.log(err);
       } else {
-          res.json(products);
+          res.json(users);
       }
   });
+});
+
+router.route('/list').get(function(req,res){
+  User.find({ },function(err,users){
+      if(err){
+          console.log(err);
+      } else {
+          res.json(users);
+      }
+  });
+});
+
+router.route('/delete/:email').get(function(req,res){
+  var loggedInUser = req.params.email;
+
+  Product.deleteMany({$and : [{ product_posted_by : loggedInUser},{product_status : {$ne : "sold"}}]},function(err,products){
+    if(err){
+        console.log(err);
+    } else {
+       console.log("Deleted Products now deleting user ");
+       User.deleteOne({email : loggedInUser  },function(err,users){
+      if(err){
+          console.log(err);
+      } else {
+          console.log("Deleted User");
+          res.json(users);
+      }
+  });
+    }
+});
+    
+  
 });
 
 router.post('/register', (req,res) =>{
@@ -31,7 +64,8 @@ router.post('/register', (req,res) =>{
           email : req.body.email,
           name : req.body.name,
           password : req.body.password,
-          accountBalance : req.body.accountBalance
+          accountBalance : req.body.accountBalance,
+          accountType : req.body.accountType
         });
         newUser.save()
         .then(user => res.status(200).json(user))

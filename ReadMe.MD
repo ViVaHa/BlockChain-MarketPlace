@@ -5,5 +5,6 @@ npm start
 
 
 Then open a new shell and cd to /client
+npm install 
 npm install -g react-scripts
 npm start
