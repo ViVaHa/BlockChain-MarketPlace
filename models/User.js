@@ -19,6 +19,10 @@ const userSchema = new Schema({
     type : Number,
     required : true
   },
+  accountType:{
+    type:String, 
+    required : true
+  },
   date:{
     type : Date,
     requird : Date.now

@@ -8,7 +8,8 @@ export default class Register extends Component {
         email : '',
         name : '',
         password : '',
-        accountBalance : 0
+        accountBalance : 0, 
+        accountType : "user"
       }
   }
   onChange = e =>{
@@ -20,7 +21,8 @@ export default class Register extends Component {
       name : this.state.name,
       email : this.state.email,
       password : this.state.password,
-      accountBalance : 500
+      accountBalance : 500,
+      accountType : this.state.accountType
     }
     console.log(this.state);
     axios.post('http://localhost:5000/api/users/register', object)
