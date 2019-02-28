@@ -102,14 +102,22 @@ export default class ListProduct extends Component{
 
             <div>
             <h3>Users</h3>
-            <table className= "table table-striped" style={{marginTop:20}}>
-                
+            <table className= "table table-light table-striped table-hover " style={{marginTop:20}}>
+            <thead class="thead-dark">
+                <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Balance</th>
+                <th scope="col">#</th>
+                </tr>
+            </thead>
                 <tbody>
                     {this.userList()}
-                    <a href="#" onClick={this.onLoadMore}>Load</a>
+                    
                 </tbody>
             
             </table>
+            <a href="#" onClick={this.onLoadMore}>Load</a>
             </div>
 
         )
