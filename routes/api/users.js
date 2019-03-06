@@ -49,6 +49,23 @@ router.route('/delete/:email').get(function(req,res){
 
 });
 
+
+
+
+router.put('/approve/:email', function (req, res) {
+    var user = req.params.email;
+    var query = {'email':user};
+    var modifiedAccountStatus = "approved";
+    User.findOneAndUpdate(query, {accountStatus: modifiedAccountStatus}, function(err, success){
+        if(err){
+          console.log(err);
+        }else{
+          res.status(200).json(user);
+        }
+    });
+
+});
+
 router.post('/register', (req,res) =>{
   console.log(req.body);
   const {errors , isValid} = registerValidation(req.body);
