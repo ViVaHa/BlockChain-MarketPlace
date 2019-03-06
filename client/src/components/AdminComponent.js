@@ -5,11 +5,11 @@ const User = props=>(
     <tr>
         <td >{props.user.name}</td>
         <td>{props.user.email}</td>
-        <td>{props.user.accountBalance}</td>    
+        <td>{props.user.accountBalance}</td>
         <td className = {props.user.accountType=="admin" ? 'hidden' : ''} >
         <DeleteButton user={props.user}/>
         </td>
-        <td className = {props.user.accountType=="admin" ? '' : 'hidden'} >        
+        <td className = {props.user.accountType=="admin" ? '' : 'hidden'} >
         </td>
     </tr>
 )
@@ -20,18 +20,15 @@ class DeleteButton extends Component{
         this.state = {
             email : this.props.user.email
         }
-       
-
     }
 
     deleteUser(e){
         var listLink = "http://localhost:5000/api/users/delete/" +  e.target.value;
-     
         axios.get(listLink)
         .then(response =>{
            console.log("Deleted successfully");
            window.location.reload();
-           
+
         })
         .catch(function(error){
             console.log(error);
@@ -56,15 +53,15 @@ export default class ListProduct extends Component{
         super(props);
         this.onLoadMore = this.onLoadMore.bind(this);
         this.userList = this.userList.bind(this);
-       
+
         this.state= {
             users:[],
-            limit :5 
-            
+            limit :5
+
         };
     }
 
-    
+
     componentDidMount(){
         var listLink = "http://localhost:5000/api/users/list";
         axios.get(listLink)
@@ -76,24 +73,21 @@ export default class ListProduct extends Component{
         })
     }
 
-   
-    
+
+
 
     onLoadMore() {
         this.setState({
             limit: this.state.limit + 5
         });
-        
+
     }
 
-    
+
     userList(){
         return this.state.users.slice(0,this.state.limit).map(function(currentUser,i){
-
             return(
-                
               <User user={currentUser} key={i}/>
-
             )
         });
     }
@@ -113,9 +107,8 @@ export default class ListProduct extends Component{
             </thead>
                 <tbody>
                     {this.userList()}
-                    
                 </tbody>
-            
+
             </table>
             <a href="#" onClick={this.onLoadMore}>Load</a>
             </div>

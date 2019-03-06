@@ -20,12 +20,12 @@ const userSchema = new Schema({
     required : true
   },
   accountType:{
-    type:String, 
+    type:String,
     required : true
   },
-  date:{
-    type : Date,
-    requird : Date.now
+  accountStatus:{
+    type : String,
+    default: "pending"
   }
 });
 

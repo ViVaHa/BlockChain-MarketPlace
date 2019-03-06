@@ -7,7 +7,8 @@ export default class Login extends Component {
       this.state = {
         email : '',
         password : '',
-        showModal : false
+        showModal : false,
+        errorStatus : ''
       }
   }
   onChange = e =>{
@@ -35,9 +36,12 @@ export default class Login extends Component {
             }
           })
           .catch(error => {
+            console.log(error.response);
             this.setState({
+                errorStatus : error.response.data.errorMsg,
                 showModal: true
             });
+            console.log(this.state);
           });
     }
 
@@ -61,7 +65,7 @@ export default class Login extends Component {
                       <input type="submit" value="Login" className="btn btn-primary"/>
                   </div>
                   <div className={this.state.showModal ? 'alert alert-danger' : 'hidden' } role="alert">
-                      Incorrect credentials
+                      {this.state.errorStatus}
                   </div>
               </form>
           </div>

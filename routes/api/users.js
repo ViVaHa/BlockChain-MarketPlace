@@ -45,8 +45,8 @@ router.route('/delete/:email').get(function(req,res){
   });
     }
 });
-    
-  
+
+
 });
 
 router.post('/register', (req,res) =>{
@@ -88,8 +88,12 @@ router.post('/login', (req,res)=>{
         res.status(400).json({email : 'Invalid Email Address'});
       }
       if(user.password.localeCompare(req.body.password)!=0){
-        res.status(400).json({password : 'Password is incorrect'});
+        res.status(400).json({errorMsg : 'Password is incorrect'});
       }
+      if(user.accountStatus.localeCompare('pending')==0){
+        res.status(400).json({errorMsg: 'Chair Person has to approve your account'});
+      }
+      console.log(user.accountStatus.localeCompare('pending'));
       res.json({
         success: true,
         email : req.body.email,
